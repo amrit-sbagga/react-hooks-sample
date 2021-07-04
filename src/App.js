@@ -1,17 +1,56 @@
 import './App.css';
-import { useState, useEffect } from 'react';
-import { BrowserRouter, Link , Route} from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Link , Route} from 'react-router-dom';
+import Jokes from './components/Jokes';
 
-function App() {
+class App extends React.Component {
+
+  myheading = React.createRef()
+
+  componentDidMount(){
+    console.log("heading innerText = ", this.myheading.current.innerText);
+  }
   
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <Route path="/" component={Home} exact />
-        <Route path="/about" component={About} />
-      </div>
-    </BrowserRouter>
-  );
+  render(){
+    return (
+      <BrowserRouter>
+        <div className="App">
+          <h2 ref={this.myheading}>React Hooks</h2>
+          <Route path="/" component={Home} exact />
+          <Route path="/about" component={About} />
+          <Route path="/jokes" component={Jokes} />
+        </div>
+      </BrowserRouter>
+    )
+  }
+  
+}
+
+const Columns = () => {
+    return (
+      <React.Fragment>
+        <td>Monty</td>
+        <td>Honey</td>
+        <td>Mickey</td>
+      </React.Fragment>
+    )
+}
+
+function MyFragment(){
+   return (
+     <div>
+        <h3>This data is from MyFragment</h3>
+        <h3>name : Amrit</h3>
+        <h3>age : 31</h3>
+        <table style={{border:'1 blue solid'}}>
+          <tbody>
+            <tr>
+              <Columns />
+            </tr>
+          </tbody>
+        </table>
+     </div>
+   )
 }
 
 const Home = () => {
@@ -32,10 +71,13 @@ const Home = () => {
   return (
     <div>
       <h3>This is home page</h3>
+      <MyFragment />
       <h3>{inp}</h3>
       <button onClick={()=>{  setInp(inp+1) }}>Increment inp</button>
       <br/>
       <Link to="/about">Go to about</Link>
+      <br/>
+      <Link to="/jokes">Go to jokes</Link>
     </div>
   )
 }
